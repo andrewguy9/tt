@@ -8,10 +8,10 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "top_talkers.h"
+#include "top_talkers_helpers.h"
 #include "counter.h"
-
-typedef top_talkers<int, counter> tt_type;
 
 int main(int argc, const char * argv[])
 {
@@ -22,16 +22,16 @@ int main(int argc, const char * argv[])
     int size = atoi(argv[1]);
     int decay = atoi(argv[2]);
     std::ifstream infile(argv[3]);
-    tt_type tt(size);
+    top_talkers<std::string, counter> tt(size);
     specified_timesource ts(0.0);
-    int conv_id;
+    std::string conv_id;
     int timestamp;
     int last_dump = 0;
     while(infile >> conv_id >> timestamp) {
         if (last_dump + decay < timestamp) {
             last_dump = timestamp;
             std::cout << "Dump "<<timestamp <<std::endl;
-            top_talkers_print<int, counter>(tt);
+            top_talkers_print<std::string, counter>(tt);
         }
         ts.set(timestamp);
         counter dc(ts, 1.0, decay);

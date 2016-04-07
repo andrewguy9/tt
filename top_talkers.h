@@ -9,7 +9,6 @@
 #ifndef reqroute_top_talkers_h
 #define reqroute_top_talkers_h
 
-#include <iostream>
 #include <boost/heap/fibonacci_heap.hpp>
 #include <boost/unordered_map.hpp>
 #include <vector>
@@ -108,15 +107,6 @@ std::vector<std::pair<color, weight>> top_talkers<color, weight>::get() const
         out.push_back(p);
     }
     return out;
-}
-
-template<typename color, typename weight>
-void top_talkers_print(top_talkers<color, weight> &tt)
-{
-    auto v = tt.get();
-    for (auto i = v.begin(); i != v.end(); i++) {
-        std::cout << i->second << " " << i->first << std::endl;
-    }
 }
 
 #endif

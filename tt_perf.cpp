@@ -8,25 +8,24 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "top_talkers.h"
-
-typedef top_talkers<int, int> tt_type;
+#include "top_talkers_helpers.h"
 
 int main(int argc, const char * argv[])
 {
-    if (argc < 2) {
-        std::cout<<"Usage: "<<argv[0]<<" size input"<<std::endl;
+    if (argc != 2) {
+        std::cout<<"Usage: "<<argv[0]<<" size"<<std::endl;
         return 1;
     }
     int size = atoi(argv[1]);
-    std::ifstream infile(argv[2]);
-    tt_type tt(size);
-    tt_type::color c;
-    tt_type::weight w;
-    while(infile >> c >> w) {
+    top_talkers<std::string, int> tt(size);
+    int w;
+    std::string c;
+    while(std::cin >> w >> c) {
         tt.update(c, w);
     }
-    top_talkers_print<int, int>(tt);
+    top_talkers_print<std::string, int>(tt);
     return 0;
 }
 
