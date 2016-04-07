@@ -15,19 +15,18 @@
 
 int main(int argc, const char * argv[])
 {
-    if (argc < 3) {
-        std::cout<<"Usage: "<<argv[0]<<" size decay_period input"<<std::endl;
+    if (argc != 3) {
+        std::cout<<"Usage: "<<argv[0]<<" size decay_period"<<std::endl;
         return 1;
     }
     int size = atoi(argv[1]);
     int decay = atoi(argv[2]);
-    std::ifstream infile(argv[3]);
     top_talkers<std::string, counter> tt(size);
     specified_timesource ts(0.0);
     std::string conv_id;
     int timestamp;
     int last_dump = 0;
-    while(infile >> conv_id >> timestamp) {
+    while(std::cin >> conv_id >> timestamp) {
         if (last_dump + decay < timestamp) {
             last_dump = timestamp;
             std::cout << "Dump "<<timestamp <<std::endl;
